@@ -51,6 +51,8 @@ VideoApplication::VideoApplication(const WEnvironment& env)
   str.clear();
   str = "<p>Volume changed</p>";
   video->playbackStarted().connect(boost::bind(&VideoApplication::SetText, this, str));
+
+  root()->addWidget(container.get());
 }
 
 void VideoApplication::SetText(const std::string str)

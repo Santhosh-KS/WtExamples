@@ -2,12 +2,17 @@ Hello-world example
 -------------------
 
 This example is a minimal Wt application. This example is covered as
-part of the [Wt tutorial](http://www.webtoolkit.eu/wt/doc/tutorial/wt.html).
+part of the [Wt tutorial](https://www.webtoolkit.eu/widgets/media/).
 
 How to run
 ----------
+cd build     
+cmake ..     
+make   
+./VideoWt.sh
 
-See the README in the parent directory.
+now open the browser http://0.0.0.0:8080 widget should be visible and playable.
+
 
 What it illustrates
 -------------------

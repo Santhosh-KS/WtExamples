@@ -5,6 +5,7 @@
 #include <Wt/WText>
 #include <Wt/WVideo>
 #include <memory>
+#include <string>
 
 // c++0x only, for std::bind
 // #include <functional>
@@ -20,7 +21,7 @@ private:
   std::unique_ptr<WContainerWidget> container;
   std::unique_ptr<WVideo> video;
   std::unique_ptr<WText> out;
-
+  std::string VideoPlaybackStatus;
   void SetText(const std::string str);
 };
 
@@ -37,20 +38,24 @@ VideoApplication::VideoApplication(const WEnvironment& env)
 
   container->addWidget(video.get());
   video->addSource(Wt::WLink(mp4Video));
-  video->addSource(Wt::WLink(ogvVideo));
+  //video->addSource(Wt::WLink(ogvVideo));
   video->setPoster(poster);
   video->setAlternativeContent(new Wt::WImage(poster));
   video->resize(640, 360);
 
   container->addWidget(out.get());
   std::string str("<p>Video playing</p>");
+  VideoPlaybackStatus ="<p>Video playing</p>" ;
   video->playbackStarted().connect(boost::bind(&VideoApplication::SetText, this, str));
   str.clear();
   str = "<p>Video paused</p>";
-  video->playbackStarted().connect(boost::bind(&VideoApplication::SetText, this, str));
+  video->playbackPaused().connect(boost::bind(&VideoApplication::SetText, this, str));
   str.clear();
   str = "<p>Volume changed</p>";
-  video->playbackStarted().connect(boost::bind(&VideoApplication::SetText, this, str));
+  video->volumeChanged().connect(boost::bind(&VideoApplication::SetText, this, str));
+  str.clear();
+  str = "<p>Video Ended</p>";
+  video->ended().connect(boost::bind(&VideoApplication::SetText, this, str));
 
   root()->addWidget(container.get());
 }

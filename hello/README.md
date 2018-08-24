@@ -7,7 +7,13 @@ part of the [Wt tutorial](http://www.webtoolkit.eu/wt/doc/tutorial/wt.html).
 How to run
 ----------
 
-See the README in the parent directory.
+cd build   
+cmake ..    
+make    
+./HelloWt.sh    
+
+
+Now open the browser and load the page : http://localhost:8080
 
 What it illustrates
 -------------------

@@ -49,6 +49,31 @@ body {
 	margin-bottom: 10px;
 }
 
+#main_left {
+	background-color: #e5e4d7;
+	margin: 10px;
+	padding: 20px;
+	font-size: 110%;
+	margin-left: 10px;
+	margin-right: 560px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#main_right {
+	background-color: #e5e4d7;
+	padding: 20px;
+	margin-right:10px;
+	margin-left:0px;
+	margin-top:0px;
+	margin-bottom: 10px;
+	font-size: 110%;
+	float: right;
+	width:540px;
+	clear:right; /*Applies on folat elements only.*/
+}
+
+
  
 .sideright {
 	background-color: #e5e4d7;
@@ -118,7 +143,7 @@ body {
 }
 
 
-#navbar ul, #header, #footer, .main, .sideright, .imagesidebar {
+#navbar ul, #header, #footer, #main_left, #main_right, .sideright, .imagesidebar {
 	border-radius: 5px;
 }
 

@@ -24,6 +24,7 @@
 
 body {
 	background-color: #9c9f84;
+	//background-color: #000;
 	margin: 0px;
 	font-family: Verdana, Georgia, serif;
 	font-size: 14px; /* small, medium*/
@@ -35,6 +36,23 @@ body {
 	margin: 10px;
 	height: 90px;
 }
+
+.row {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#video {
+  //width: 300px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
 
 #navbar ul {
 	list-style-type: none;
@@ -79,7 +97,7 @@ body {
 	padding: 20px;
 	font-size: 110%;
 	margin-left: 10px;
-	margin-right: 560px;
+	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	clear:left; /*Applies on folat elements only.*/
@@ -189,4 +207,26 @@ h1 {
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
+}
+
+.thumbnail
+{
+  text-align:center;
+  font-style: bold;
+}
+/*
+#videoSize {
+  width: 300px;
+}*/
+
+#caption {
+  background-color: #000;
+  opacity: 1.0;
+  color: #ff0000
+}
+
+#caption a:hover {
+	background-color: #fff;
+	color: #00ff00;
+    opacity: 0.5;
 }

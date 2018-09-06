@@ -17,6 +17,7 @@ private:
   Wt::WVideo *VideoPlayer;
   Wt::WText *VideoPlaybackStatus;
   Wt::WContainerWidget *MainVideoDiv;
+  Wt::WContainerWidget *MainVideoContainer;
 
   Wt::WContainerWidget *ThumbnailDiv;
   void SetupTheme();

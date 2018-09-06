@@ -48,20 +48,23 @@ void NewUiApplication::SetupVideoSearchBar(Wt::WContainerWidget *mainLeft)
 
 void NewUiApplication::SetupVideoPlayer(Wt::WContainerWidget *mainLeft)
 {
-  Wt::WContainerWidget *rowDiv = mainLeft->addWidget(std::make_unique<Wt::WContainerWidget>());
+  MainVideoContainer = mainLeft->addWidget(std::make_unique<Wt::WContainerWidget>());
+  Wt::WContainerWidget *rowDiv = MainVideoContainer->addWidget(std::make_unique<Wt::WContainerWidget>());
   rowDiv->setStyleClass("row");
+  //Wt::WContainerWidget *columnDiv = rowDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  //columnDiv->setStyleClass("col-md-12 col-lg-12 col-xs-6");
   //rowDiv->setId("videoSize");
   Wt::WContainerWidget *columnDiv = rowDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
   columnDiv->setStyleClass("col-md-12 col-lg-12 col-xs-6");
   Wt::WContainerWidget *VideoPlayerDiv = columnDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
 //  columnDiv->addWidget(std::make_unique<Wt::WBreak>());
   //VideoPlayerDiv->setId("videoSize");
-  VideoPlayerDiv->setStyleClass("embed-responsive embed-responsive-16by9");
+ // VideoPlayerDiv->setStyleClass("embed-responsive embed-responsive-16by9");
+  VideoPlayerDiv->setStyleClass("embed-responsive embed-responsive-4by3");
   VideoPlayer = VideoPlayerDiv->addWidget(std::make_unique<Wt::WVideo>());
   // TODO: Make the Video window responsive to devices.
   //VideoPlayer->setStyleClass("embed-responsive embed-responsive-4by3");
   //VideoPlayer->resize(680, 400);
-  //VideoPlayer->hide();
 
   VideoPlaybackStatus = columnDiv->addWidget(std::make_unique<Wt::WText>("Playback Not started."));
 
@@ -76,6 +79,7 @@ void NewUiApplication::SetupVideoPlayer(Wt::WContainerWidget *mainLeft)
   str.clear();
   str = "<p>Video Ended</p>";
   VideoPlayer->ended().connect(std::bind(&NewUiApplication::SetVideoPlaybackStatus, this, str));
+  MainVideoContainer->hide();
 }
 
 void NewUiApplication::SetupImageGallary(Wt::WContainerWidget *mainRight)
@@ -85,28 +89,60 @@ void NewUiApplication::SetupImageGallary(Wt::WContainerWidget *mainRight)
   Wt::WContainerWidget *rowDiv = gallaryDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
   rowDiv->setStyleClass("row");
   Wt::WContainerWidget *columnDiv = rowDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
-  columnDiv->setStyleClass("col-md-12 col-xs-3");
+  rowDiv->setStyleClass("col-md-2 col-xs-4");
+  Wt::WContainerWidget *thumbnailDiv= columnDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  thumbnailDiv->setStyleClass("thumbnail");
+  std::string link("images/30/1534569993258_1_30_30_200_200.jpg");
+ // Wt::WImage *img = thumbnail->addWidget(std::make_unique<Wt::WContainerWidget>(Wt::WLink(link)));
+ // img->setStyleClass("img-responsive ");
+  Wt::WLink anchorLink = Wt::WLink(link);
+  anchorLink.setTarget(Wt::LinkTarget::NewWindow);
+  Wt::WAnchor *anchor = thumbnailDiv->addWidget(std::make_unique<Wt::WAnchor>(anchorLink));
+  anchor->addNew<Wt::WImage>(Wt::WLink("images/30/1534569993258_1_30_30_200_200.jpg"));
+  Wt::WText *caption = thumbnailDiv->addWidget(std::make_unique<Wt::WText>("Unknown"));
+}
+#if 0
+void NewUiApplication::SetupImageGallary(Wt::WContainerWidget *mainRight)
+{
+  Wt::WContainerWidget *gallaryDiv = mainRight->addWidget(std::make_unique<Wt::WContainerWidget>());
+  gallaryDiv->setStyleClass("container-fluid");
+  Wt::WContainerWidget *rowDiv = gallaryDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  rowDiv->setStyleClass("row");
+  Wt::WContainerWidget *columnDiv = rowDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  columnDiv->setStyleClass("col-md-3 col-xs-5");
   ThumbnailDiv = columnDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
-  ThumbnailDiv->setStyleClass("thumbnail");
-  std::string link("https://github.com/Santhosh-KS/travis_CI_opencv/blob/master/30/1534569964297_1_30_30_200_200.jpg?raw=true");
+  //ThumbnailDiv->setStyleClass("thumbnail");
+  //std::string link("https://github.com/Santhosh-KS/travis_CI_opencv/blob/master/30/1534569964297_1_30_30_200_200.jpg?raw=true");
+  std::string link("images/30/1534569993258_1_30_30_200_200.jpg");
   Wt::WContainerWidget *captionDiv = ThumbnailDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
   Wt::WText *caption = captionDiv->addWidget(std::make_unique<Wt::WText>("Unknown"));
   Wt::WLink anchorLink = Wt::WLink(link);
   anchorLink.setTarget(Wt::LinkTarget::NewWindow);
-  std::unique_ptr<Wt::WAnchor> anchor = std::make_unique<Wt::WAnchor>(anchorLink);
-  anchor->addNew<Wt::WImage>(Wt::WLink("https://github.com/Santhosh-KS/travis_CI_opencv/blob/master/30/1534569964297_1_30_30_200_200.jpg?raw=true"));
+  //std::unique_ptr<Wt::WAnchor> anchor = std::make_unique<Wt::WAnchor>(anchorLink);
+  Wt::WAnchor *anchor = columnDiv->addWidget(std::make_unique<Wt::WAnchor>(anchorLink));
+  anchor->setStyleClass("thumbnail");
+  //anchor->addNew<Wt::WImage>(Wt::WLink("https://github.com/Santhosh-KS/travis_CI_opencv/blob/master/30/1534569964297_1_30_30_200_200.jpg?raw=true"));
+  anchor->addNew<Wt::WImage>(Wt::WLink("images/30/1534569993258_1_30_30_200_200.jpg"));
   captionDiv->setId("caption");
-  captionDiv->addWidget(std::move(anchor));
+  //captionDiv->addWidget(std::move(anchor));
+  //captionDiv->addWidget(anchor);
   Wt::WContainerWidget *captionDiv1 = ThumbnailDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
   Wt::WText *caption1 = captionDiv1->addWidget(std::make_unique<Wt::WText>("Unknown"));
-  Wt::WLink anchorLink1 = Wt::WLink("https://github.com/Santhosh-KS/travis_CI_opencv/blob/master/30/1534569965471_1_30_30_200_200.jpg?raw=true");
+  //Wt::WLink anchorLink1 = Wt::WLink("https://github.com/Santhosh-KS/travis_CI_opencv/blob/master/30/1534569965471_1_30_30_200_200.jpg?raw=true");
+  Wt::WLink anchorLink1 = Wt::WLink("images/30/1534569956644_1_30_30_200_200.jpg");
   anchorLink1.setTarget(Wt::LinkTarget::NewWindow);
-  std::unique_ptr<Wt::WAnchor> anchor1 = std::make_unique<Wt::WAnchor>(anchorLink1);
-  anchor1->addNew<Wt::WImage>(Wt::WLink("https://github.com/Santhosh-KS/travis_CI_opencv/blob/master/30/1534569965471_1_30_30_200_200.jpg?raw=true"));
+  //std::unique_ptr<Wt::WAnchor> anchor1 = std::make_unique<Wt::WAnchor>(anchorLink1);
+  Wt::WAnchor *anchor1 = columnDiv->addWidget(std::make_unique<Wt::WAnchor>(anchorLink1));
+  //anchor1->addNew<Wt::WImage>(Wt::WLink("https://github.com/Santhosh-KS/travis_CI_opencv/blob/master/30/1534569965471_1_30_30_200_200.jpg?raw=true"));
+  //anchor1->addNew<Wt::WImage>(Wt::WLink("images/cluster_4.jpg"));
+  anchor1->addNew<Wt::WImage>(Wt::WLink("images/30/1534569956644_1_30_30_200_200.jpg"));
+  anchor1->setStyleClass("thumbnail");
   captionDiv1->setId("caption");
-  captionDiv1->addWidget(std::move(anchor1));
+  //captionDiv1->addWidget(std::move(anchor1));
+  //captionDiv1->addWidget(anchor1);
 
 }
+#endif
 #if 0
 void NewUiApplication::SetupImageGallary(Wt::WContainerWidget *mainRight)
 {
@@ -196,7 +232,8 @@ void NewUiApplication::OnPlayButtonPressed()
     VideoPlayer->hide();
     Wt::WMessageBox::show("Information", "Please give me youtube URL.", Wt::StandardButton::Ok);
   }
-  //VideoPlayerDiv->show();
+  //VideoPlayer->show();
+  MainVideoContainer->show();
 }
 
 void NewUiApplication::SetVideoPlaybackStatus(const std::string str)
@@ -219,9 +256,9 @@ NewUiApplication::NewUiApplication(const Wt::WEnvironment& env)
   MainVideoDiv->setId("main_left");
   SetupVideoSearchBar(MainVideoDiv);
   SetupVideoPlayer(MainVideoDiv);
-/*  Wt::WContainerWidget *MainImageGallaryDiv = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
-  MainVideoDiv->setId("main");
-  SetupImageGallary(MainImageGallaryDiv);*/
+  Wt::WContainerWidget *MainImageGallaryDiv = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+  MainImageGallaryDiv->setId("main_left");
+  SetupImageGallary(MainImageGallaryDiv);
   SetupFooter();
 /*
   root()->addWidget(std::make_unique<Wt::WText>("Your name, please ? ")); // show some text

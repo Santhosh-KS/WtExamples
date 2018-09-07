@@ -1,4 +1,6 @@
 #include <fstream>
+#include <string>
+#include <vector>
 #include <signal.h>
 
 #include <Wt/WMessageBox.h>
@@ -88,18 +90,28 @@ void NewUiApplication::SetupImageGallary(Wt::WContainerWidget *mainRight)
   gallaryDiv->setStyleClass("container-fluid");
   Wt::WContainerWidget *rowDiv = gallaryDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
   rowDiv->setStyleClass("row");
-  Wt::WContainerWidget *columnDiv = rowDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
-  rowDiv->setStyleClass("col-md-2 col-xs-4");
-  Wt::WContainerWidget *thumbnailDiv= columnDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
-  thumbnailDiv->setStyleClass("thumbnail");
+  std::vector<std::string> testVec;
+  testVec.push_back("images/30/1534569993258_1_30_30_200_200.jpg");
+  testVec.push_back("images/30/1534569993258_1_30_30_200_200.jpg");
+  testVec.push_back("images/30/1534569993258_1_30_30_200_200.jpg");
+  testVec.push_back("images/30/1534569993258_1_30_30_200_200.jpg");
+  testVec.push_back("images/30/1534569993258_1_30_30_200_200.jpg");
+  testVec.push_back("images/30/1534569993258_1_30_30_200_200.jpg");
+  testVec.push_back("images/30/1534569993258_1_30_30_200_200.jpg");
   std::string link("images/30/1534569993258_1_30_30_200_200.jpg");
- // Wt::WImage *img = thumbnail->addWidget(std::make_unique<Wt::WContainerWidget>(Wt::WLink(link)));
- // img->setStyleClass("img-responsive ");
-  Wt::WLink anchorLink = Wt::WLink(link);
-  anchorLink.setTarget(Wt::LinkTarget::NewWindow);
-  Wt::WAnchor *anchor = thumbnailDiv->addWidget(std::make_unique<Wt::WAnchor>(anchorLink));
-  anchor->addNew<Wt::WImage>(Wt::WLink("images/30/1534569993258_1_30_30_200_200.jpg"));
-  Wt::WText *caption = thumbnailDiv->addWidget(std::make_unique<Wt::WText>("Unknown"));
+  for (auto link: testVec) {
+    // Wt::WImage *img = thumbnail->addWidget(std::make_unique<Wt::WContainerWidget>(Wt::WLink(link)));
+    // img->setStyleClass("img-responsive ");
+    Wt::WContainerWidget *columnDiv = rowDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+    columnDiv->setStyleClass("col-md-2 col-xs-4");
+    Wt::WContainerWidget *thumbnailDiv= columnDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+    thumbnailDiv->setStyleClass("thumbnail");
+    Wt::WLink anchorLink = Wt::WLink(link);
+    anchorLink.setTarget(Wt::LinkTarget::NewWindow);
+    Wt::WAnchor *anchor = thumbnailDiv->addWidget(std::make_unique<Wt::WAnchor>(anchorLink));
+    anchor->addNew<Wt::WImage>(Wt::WLink("images/30/1534569993258_1_30_30_200_200.jpg"));
+    Wt::WText *caption = thumbnailDiv->addWidget(std::make_unique<Wt::WText>("Unknown"));
+  }
 }
 #if 0
 void NewUiApplication::SetupImageGallary(Wt::WContainerWidget *mainRight)

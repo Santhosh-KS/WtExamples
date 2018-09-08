@@ -18,6 +18,8 @@ private:
   Wt::WText *VideoPlaybackStatus;
   Wt::WContainerWidget *MainVideoDiv;
   Wt::WContainerWidget *MainVideoContainer;
+  Wt::WContainerWidget *MainImageGallaryDiv;
+  Wt::WContainerWidget *MainNavToolDiv;
 
   Wt::WContainerWidget *ThumbnailDiv;
   void SetupTheme();
@@ -30,6 +32,8 @@ private:
   void SetupFooter();
   void OnPlayButtonPressed();
   void SetVideoPlaybackStatus(const std::string str);
+  void SetupNavToolBar(Wt::WContainerWidget *navToolDiv);
+  void SetupProgressBar(Wt::WContainerWidget *div);
 public:
   NewUiApplication(const Wt::WEnvironment& env);
   ~NewUiApplication();

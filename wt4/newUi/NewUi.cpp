@@ -20,6 +20,7 @@ void NewUiApplication::SetupHeader()
 {
   Wt::WContainerWidget *HeaderDiv = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
   HeaderDiv->setId("header");
+  //HeaderDiv->setStyleClass("page-header");
   Wt::WContainerWidget *HeaderDivTextDiv = HeaderDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
   HeaderDivTextDiv->setId("h3");
   Wt::WText *HeaderText = HeaderDivTextDiv->addWidget(std::make_unique<Wt::WText>(Wt::WString::fromUTF8("spookfish")));
@@ -54,6 +55,43 @@ void NewUiApplication::SetupVideoSearchBar(Wt::WContainerWidget *mainLeft)
     (std::bind(&NewUiApplication::OnPlayButtonPressed, this));
 
   PlayButton->clicked().connect(this, &NewUiApplication::OnPlayButtonPressed);
+}
+
+void NewUiApplication::SetupNavToolBar(Wt::WContainerWidget *navToolDiv)
+{
+  Wt::WContainerWidget *btnGrp = navToolDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  btnGrp->setStyleClass("btn-group btn-group-justified");
+
+  Wt::WContainerWidget *btnDiv1= btnGrp->addWidget(std::make_unique<Wt::WContainerWidget>());
+  btnDiv1->setStyleClass("btn-group");
+  Wt::WPushButton *btn1 = btnDiv1->addWidget(std::make_unique<Wt::WPushButton>("Primary"));
+  btn1->setStyleClass("btn btn-primary");
+
+  Wt::WContainerWidget *btnDiv2= btnGrp->addWidget(std::make_unique<Wt::WContainerWidget>());
+  btnDiv2->setStyleClass("btn-group");
+  Wt::WPushButton *btn2 = btnDiv2->addWidget(std::make_unique<Wt::WPushButton>("Info"));
+  btn2->setStyleClass("btn btn-info");
+
+  Wt::WContainerWidget *btnDiv3= btnGrp->addWidget(std::make_unique<Wt::WContainerWidget>());
+  btnDiv3->setStyleClass("btn-group");
+  Wt::WPushButton *btn3 = btnDiv3->addWidget(std::make_unique<Wt::WPushButton>("Success"));
+  btn3->setStyleClass("btn btn-success");
+
+  Wt::WContainerWidget *btnDiv4= btnGrp->addWidget(std::make_unique<Wt::WContainerWidget>());
+  btnDiv4->setStyleClass("btn-group");
+  Wt::WPushButton *btn4 = btnDiv4->addWidget(std::make_unique<Wt::WPushButton>("Warning"));
+  btn4->setStyleClass("btn btn-warning");
+
+  Wt::WContainerWidget *btnDiv5= btnGrp->addWidget(std::make_unique<Wt::WContainerWidget>());
+  btnDiv5->setStyleClass("btn-group");
+  Wt::WPushButton *btn5 = btnDiv5->addWidget(std::make_unique<Wt::WPushButton>("Danger"));
+  btn5->setStyleClass("btn btn-danger");
+
+  Wt::WContainerWidget *btnDiv6= btnGrp->addWidget(std::make_unique<Wt::WContainerWidget>());
+  btnDiv6->setStyleClass("btn-group");
+  Wt::WPushButton *btn6 = btnDiv6->addWidget(std::make_unique<Wt::WPushButton>("Default"));
+  btn6->setStyleClass("btn btn-default");
+  MainNavToolDiv->hide();
 }
 
 void NewUiApplication::SetupVideoPlayer(Wt::WContainerWidget *mainLeft)
@@ -120,6 +158,7 @@ void NewUiApplication::SetupImageGallary(Wt::WContainerWidget *mainRight)
     anchor->addNew<Wt::WImage>(Wt::WLink("images/30/1534569993258_1_30_30_200_200.jpg"));
     Wt::WText *caption = thumbnailDiv->addWidget(std::make_unique<Wt::WText>("Unknown"));
   }
+  MainImageGallaryDiv->hide();
 }
 
 void NewUiApplication::SetupFooter()
@@ -128,6 +167,33 @@ void NewUiApplication::SetupFooter()
   FooterDiv->setId("footer");
   Wt::WContainerWidget *FooterDivTextDiv = FooterDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
   Wt::WText *Text = FooterDivTextDiv->addWidget(std::make_unique<Wt::WText>(Wt::WString::fromUTF8("© Spookfish. All Rights Reserved.")));
+}
+
+void NewUiApplication::SetupProgressBar(Wt::WContainerWidget *div)
+{
+  //Wt::WContainerWidget *mainProgressDiv = div->addWidget(std::make_unique<Wt::WContainerWidget>());
+  //mainProgressDiv->setId("customProgressBar");
+
+  //Wt::WContainerWidget *progressDiv = mainProgressDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  Wt::WContainerWidget *progressDiv = div->addWidget(std::make_unique<Wt::WContainerWidget>());
+  progressDiv->setStyleClass("progress");
+
+  Wt::WContainerWidget *progressBarDiv = progressDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  //progressBarDiv->setStyleClass("progress-bar progress-bar-striped active");
+  //progressBarDiv->setStyleClass("progress-bar");
+  progressBarDiv->setAttributeValue("class",Wt::WString("progress-bar"));
+  progressBarDiv->setAttributeValue("role",Wt::WString("progressbar"));
+  progressBarDiv->setAttributeValue("aria-valuenow", Wt::WString("100"));
+  progressBarDiv->setAttributeValue("aria-valuemin", Wt::WString("0"));
+  progressBarDiv->setAttributeValue("aria-valuemax", Wt::WString("100"));
+  progressBarDiv->setAttributeValue("style", Wt::WString("min-width: 10em; width: 2%;"));
+   //aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+
+  //Wt::WContainerWidget *currentProgress = progressBarDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  //currentProgress->setStyleClass("sr-only");
+
+  //Wt::WText *status = currentProgress->addWidget(std::make_unique<Wt::WText>());
+  //status->setText("45% complete");
 }
 
 // Event and button click handlers.
@@ -176,6 +242,8 @@ void NewUiApplication::OnPlayButtonPressed()
   }
   //VideoPlayer->show();
   MainVideoContainer->show();
+  MainNavToolDiv->show();
+  MainImageGallaryDiv->show();
 }
 
 void NewUiApplication::SetVideoPlaybackStatus(const std::string str)
@@ -199,9 +267,19 @@ NewUiApplication::NewUiApplication(const Wt::WEnvironment& env)
   MainVideoDiv->setId("main_left");
   SetupVideoSearchBar(MainVideoDiv);
   SetupVideoPlayer(MainVideoDiv);
-  Wt::WContainerWidget *MainImageGallaryDiv = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
-  MainImageGallaryDiv->setId("main_left");
+
+  MainNavToolDiv = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+  MainNavToolDiv->setId("gallaryNavBar");
+  SetupNavToolBar(MainNavToolDiv);
+
+  Wt::WContainerWidget *ProgressBar= root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+  SetupProgressBar(ProgressBar);
+
+  MainImageGallaryDiv = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+  MainImageGallaryDiv->setId("gallary");
+  //MainImageGallaryDiv->setStyleClass("alert alert-success");
   SetupImageGallary(MainImageGallaryDiv);
+
   SetupFooter();
 /*
   root()->addWidget(std::make_unique<Wt::WText>("Your name, please ? ")); // show some text

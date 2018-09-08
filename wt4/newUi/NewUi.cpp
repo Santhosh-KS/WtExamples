@@ -171,29 +171,41 @@ void NewUiApplication::SetupFooter()
 
 void NewUiApplication::SetupProgressBar(Wt::WContainerWidget *div)
 {
-  //Wt::WContainerWidget *mainProgressDiv = div->addWidget(std::make_unique<Wt::WContainerWidget>());
-  //mainProgressDiv->setId("customProgressBar");
+  Wt::WContainerWidget *mainProgressDiv = div->addWidget(std::make_unique<Wt::WContainerWidget>());
+  mainProgressDiv->setId("customProgressBar");
 
-  //Wt::WContainerWidget *progressDiv = mainProgressDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
-  Wt::WContainerWidget *progressDiv = div->addWidget(std::make_unique<Wt::WContainerWidget>());
+  Wt::WContainerWidget *row = mainProgressDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  row->setStyleClass("row");
+
+  Wt::WContainerWidget *colDiv1 = row->addWidget(std::make_unique<Wt::WContainerWidget>());
+  colDiv1->setStyleClass("col-md-3  col-xs-1 ");
+
+  Wt::WContainerWidget *colDiv2 = row->addWidget(std::make_unique<Wt::WContainerWidget>());
+  colDiv2->setStyleClass("col-md-6 col-xs-3");
+  Wt::WContainerWidget *progressDiv = colDiv2->addWidget(std::make_unique<Wt::WContainerWidget>());
+  //Wt::WContainerWidget *progressDiv = div->addWidget(std::make_unique<Wt::WContainerWidget>());
   progressDiv->setStyleClass("progress");
 
   Wt::WContainerWidget *progressBarDiv = progressDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
   //progressBarDiv->setStyleClass("progress-bar progress-bar-striped active");
+  progressBarDiv->setStyleClass("progress-bar progress-bar-success progress-bar-striped active");
   //progressBarDiv->setStyleClass("progress-bar");
-  progressBarDiv->setAttributeValue("class",Wt::WString("progress-bar"));
+  //progressBarDiv->setAttributeValue("class",Wt::WString("progress-bar"));
   progressBarDiv->setAttributeValue("role",Wt::WString("progressbar"));
   progressBarDiv->setAttributeValue("aria-valuenow", Wt::WString("100"));
   progressBarDiv->setAttributeValue("aria-valuemin", Wt::WString("0"));
   progressBarDiv->setAttributeValue("aria-valuemax", Wt::WString("100"));
-  progressBarDiv->setAttributeValue("style", Wt::WString("min-width: 10em; width: 2%;"));
+  progressBarDiv->setAttributeValue("style", Wt::WString("min-width: 2em; width: 50%;"));
    //aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
 
-  //Wt::WContainerWidget *currentProgress = progressBarDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
-  //currentProgress->setStyleClass("sr-only");
+  Wt::WContainerWidget *currentProgress = progressBarDiv->addWidget(std::make_unique<Wt::WContainerWidget>());
+  currentProgress->setStyleClass("sr-only");
 
-  //Wt::WText *status = currentProgress->addWidget(std::make_unique<Wt::WText>());
-  //status->setText("45% complete");
+  Wt::WText *status = currentProgress->addWidget(std::make_unique<Wt::WText>());
+  status->setText("45\% complete");
+
+  Wt::WContainerWidget *colDiv3 = row->addWidget(std::make_unique<Wt::WContainerWidget>());
+  colDiv3->setStyleClass("col-md-3  col-xs-1 ");
 }
 
 // Event and button click handlers.
@@ -273,6 +285,7 @@ NewUiApplication::NewUiApplication(const Wt::WEnvironment& env)
   SetupNavToolBar(MainNavToolDiv);
 
   Wt::WContainerWidget *ProgressBar= root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+  ProgressBar->setId("customProgressBar");
   SetupProgressBar(ProgressBar);
 
   MainImageGallaryDiv = root()->addWidget(std::make_unique<Wt::WContainerWidget>());

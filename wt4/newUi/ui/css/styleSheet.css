@@ -37,12 +37,14 @@ body {
   margin: 15px;
   height: 90px;
 }
+
 .col {
   //background-color: #000;
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .row {
@@ -52,6 +54,7 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 7px;
+  border-radius: 5px;
 }
 
 #video {
@@ -121,7 +124,14 @@ body {
   margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+  border-radius: 5px;
   //	clear:left; /*Applies on folat elements only.*/
+}
+
+#customProgressBar {
+  margin: 10px;
+  border-radius: 5px;
+  height: 40px;
 }
 
 #main_right {
